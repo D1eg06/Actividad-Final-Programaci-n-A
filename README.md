@@ -1,90 +1,76 @@
-## Descripción de la Analogía
+# 🏟️ Sistema de Gestión de Futbolistas Profesionales
 
-Este proyecto modela un sistema de **gestión de futbolistas** usando los principios de la Programación Orientada a Objetos (POO) en Python. La analogía principal es el mundo del fútbol profesional, donde un **Delantero** es un tipo especializado de futbolista que combina habilidades de juego y entrenamiento.
-
-La jerarquía de clases es la siguiente:
-
-```
-Futbolista (ABC - clase abstracta)
-Jugar      (clase independiente: representa la capacidad de jugar partidos)
-Entrenar   (clase independiente: representa la capacidad de entrenamiento)
-    └── Delantero (herencia múltiple de las tres anteriores)
-```
+Actividad Final Corte #1 — Programación Orientada a Objetos con Python  
+**Facultad de Ingeniería de Sistemas — Universidad de La Guajira**
 
 ---
 
-## Estructura del Proyecto
+## 📖 Descripción de la analogía
+
+Se modela un **sistema de gestión de futbolistas profesionales**. La analogía representa el mundo del fútbol, donde cada jugador tiene una identidad base (nombre, edad, nacionalidad), estadísticas de rendimiento (goles, asistencias, partidos jugados) y un contrato vigente con un club (equipo, salario, duración). A partir de estos tres pilares se construye el perfil completo de un futbolista profesional, incluyendo el cálculo estimado de su valor de mercado.
+
+---
+
+## 🗂️ Estructura del proyecto
 
 ```
 nivelacion_python/
-├── futbolista.py   # Contiene todas las clases y el bloque de prueba principal
-└── README.md       # Este archivo
+│
+└── actividad_final_C1.py   # Script principal con toda la implementación
 ```
 
 ---
 
-## Requisitos
+## 🧱 Arquitectura de clases
 
-- Python 3.8 o superior
-- No se requieren dependencias externas (solo módulos estándar de Python: `abc`)
-
----
-
-## Cómo Ejecutar
-
-1. Clona el repositorio y navega a la carpeta del proyecto:
-
-```bash
-git clone <url-del-repositorio>
-cd nivelacion_python
-```
-
-2. Ejecuta el script principal:
-
-```bash
-python futbolista.py
-```
-
-El bloque `if __name__ == "__main__":` al final del archivo activa automáticamente las pruebas, las cuales demuestran:
-
-- **Polimorfismo:** se itera sobre una lista de objetos `Delantero` y se invocan los métodos `__str__` y `valorMercado()` heredados de la clase abstracta.
-- **Encapsulamiento:** se lee y modifica el atributo protegido `_edad` a través de su `@property` y `@edad.setter`, incluyendo la validación que rechaza edades fuera del rango permitido (15–50 años).
+| Clase | Tipo | Descripción |
+|---|---|---|
+| `Futbolista` | Abstracta (ABC) | Clase padre. Define atributos base y declara `__str__` y `valorMercado` como métodos abstractos. |
+| `Estadisticas` | Independiente | Gestiona goles, asistencias y partidos jugados. Calcula el promedio de contribuciones por partido. |
+| `Contrato` | Independiente | Gestiona el equipo, la vigencia del contrato y el salario del jugador. |
+| `FutbolistaProfesional` | Herencia múltiple | Hereda de `Futbolista`, `Estadisticas` y `Contrato`. Implementa los métodos abstractos y aplica encapsulamiento robusto con `@property`. |
 
 ---
 
-## Ejemplo de Salida Esperada
+## ▶️ Cómo ejecutar
 
-```
-POLIMORFISMO EN ACCIÓN
-----------------------------------------
-Nombre: Lionel Messi
-Edad: 36 años
-...
-Valor de Mercado para Lionel Messi: $40,000,000.00
-----------------------------------------
+### Requisitos
 
-ENCAPSULAMIENTO
-----------------------------------------
-Edad original de Lionel Messi: 36 años
-Intento de edad inválida (60 años):
-La edad debe estar entre 15 y 50 años.
-Edad después de intento inválido: 40 años
-```
+- Python **3.8** o superior
+- No se requieren dependencias externas (solo librería estándar `abc`)
+
+### Pasos
+
+1. Clona o descarga el repositorio:
+   ```bash
+   git clone https://github.com/<tu-usuario>/nivelacion_python.git
+   cd nivelacion_python
+   ```
+
+2. Ejecuta el script:
+   ```bash
+   python actividad_final_C1.py
+   ```
+
+### Salida esperada
+
+El programa imprimirá en consola:
+
+- La ficha completa de **3 jugadores** (Mbappé, Modric, Alisson), demostrando polimorfismo con `__str__` y `valorMercado()`.
+- Una sección de **encapsulamiento** donde se lee y modifica la posición de un jugador a través de su setter, y se captura un error al intentar asignar una posición inválida (`"Arquero"`).
+- Una demostración similar con el atributo `edad`, asignando un valor válido y luego intentando uno fuera del rango permitido (> 50).
 
 ---
 
-## Convención de Nombres
+## ✅ Conceptos de POO aplicados
 
-Se utilizó **camelCase** de forma consistente en todos los atributos y métodos del proyecto (por ejemplo: `valorMercado`, `promedioGoles`, `nuevaEdad`).
+- **Abstracción:** `Futbolista` es una clase abstracta que obliga a sus subclases a implementar `__str__` y `valorMercado`.
+- **Herencia múltiple:** `FutbolistaProfesional` hereda de tres clases usando el orden MRO de Python.
+- **Encapsulamiento:** Atributos privados (`__edad`, `__goles`, `__salario`, etc.) y protegidos (`_nombre`, `_posicion`, etc.) con acceso controlado por `@property` y validaciones en los setters.
+- **Polimorfismo:** Los métodos `__str__` y `valorMercado()` se invocan uniformemente sobre objetos distintos iterando una lista.
 
 ---
 
-## Conceptos de POO Aplicados
+## 🏷️ Convención de nombres
 
-| Concepto | Implementación |
-|---|---|
-| Clase abstracta | `Futbolista` con `ABC` y `@abstractmethod` |
-| Herencia múltiple | `Delantero(Futbolista, Entrenar, Jugar)` |
-| Encapsulamiento | Atributo `_edad` con `@property` y `@edad.setter` |
-| Polimorfismo | Iteración sobre lista de objetos llamando métodos heredados |
-| Validación | El setter de `edad` rechaza valores fuera del rango 15–50 |
+Se utiliza **camelCase** de forma consistente en todos los identificadores del proyecto (atributos, métodos, variables locales), siguiendo las indicaciones de la actividad.
